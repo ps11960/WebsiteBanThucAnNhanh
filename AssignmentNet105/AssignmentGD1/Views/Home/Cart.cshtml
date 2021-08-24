@@ -1,0 +1,180 @@
+﻿@using AssignmentGD1.Models
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Extensions
+@using AssignmentGD1.Constant
+
+@model IEnumerable<AssignmentGD1.Models.ViewModels.ViewCart>
+@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+}
+
+@{ string emailAddress = Context.Session.GetString(SessionKey.KhachHang.KH_Email);}
+
+@{ string fullname = Context.Session.GetString(SessionKey.KhachHang.KH_FullName);}
+<style>
+    .list-product {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .product {
+        margin-top: 10px;
+        margin-right: 10px;
+        width: 205px;
+    }
+
+    .img {
+        width: 150px;
+        display: block;
+        margin: auto;
+    }
+
+    .title {
+        color: #0e0e0e;
+        display: block;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        height: 60px;
+    }
+
+    .field-price {
+        font-size: 24px;
+        color: #d50000;
+        margin-bottom: 15px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .viewProduct, .addProduct {
+        border: 0;
+        font-weight: 700;
+        padding: 9px 5px;
+        background: #ffd800;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        display: block;
+        width: 186px;
+        margin: 0 auto;
+        color: #0e0e0e;
+    }
+
+    .addProduct {
+        margin-left: 2px;
+    }
+</style>
+
+<h1>Giỏ Hàng</h1>
+
+<table class="table">
+    <tr>
+        <th>STT</th>
+        <th>Tên Món</th>
+        <th>Ảnh</th>
+        <th>Số Lượng</th>
+        <th>Đơn Giá</th>
+        <th>Thành Tiền</th>
+        <th></th>
+    </tr>
+    @{
+        int stt = 0;
+        double total = 0;
+        foreach (var item in Model)
+        {
+            int Id = item.MonAn.MonAnId;
+            string txt_Id = "txtQuantity_" + Id;
+            stt++;
+            double totalSub = item.MonAn.Gia * item.Quantity;
+            total += totalSub;
+            <tr id="tr_@Id">
+                <td>@stt</td>
+                <td>@item.MonAn.Name</td>
+                <td>
+                    <img src="~/images/monan/@item.MonAn.HinhAnh" style="width:150px" />
+                </td>
+                <td><input type="number" id="@txt_Id" value="@item.Quantity" /></td>
+                <td id="tdGia_@Id">@item.MonAn.Gia</td>
+                <td id="idGia_@Id">@totalSub</td>
+                <td>
+                    <a href="javascript:updateCart(@Id);">Cập nhật</a>
+                    <a href="javascript:delCart(@Id);">Xóa</a>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<p>
+    <div>Tổng Tiền: <span id="spTotal">@total</span></div>
+</p>
+<p>
+    @if (emailAddress != null && emailAddress != "")
+    {
+        <a class="addProduct" href="javascript:orderCart(true);">Đặt Hàng </a>
+    }
+    else
+    {
+        <a class="addProduct" href="javascript:orderCart(false);">Đặt Hàng</a>
+        <span>Bạn cần đăng nhập để đặt hàng</span>
+    }
+</p>
+<script>
+    function delCart(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Home/DeleteCart",
+            data: {
+                id: id,
+            },
+            success: function (result) {
+                $("#tr_" + id).hide();
+                $("#spTotal").html(result);
+
+                alert("Đã xóa " + result+1 + " món");
+                if (result == "0") {
+                    $("#imgCart").attr("src", '/images/cart.png');
+                }
+            }
+        });
+    }
+    function updateCart(id) {
+        var soluong = $("#txtQuantity_" + id).val();
+        var gia = $("#tdGia_" + id).html();
+        var thanhtien = soluong * gia;
+        $("#tdTien_" + id).html(thanhtien);
+
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/UpdateCart",
+            data: {
+                id: id,
+                soluong: soluong
+            },
+            success: function (result) {
+                $("#spTotal").html(result);
+                $("#idGia_id").html(result);
+                if (result == "0") {
+                    $("#imgCart").attr("src", '/images/cart.png');
+                }
+            }
+        });
+    }
+    function orderCart(flagLogin) {
+        if (!flagLogin) {
+            alert("Bạn cần đăng nhập để đặt hàng.");
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/OrderCart",
+            data: {
+            },
+            success: function (result) {
+                window.location = "/Home/Index";
+            }
+        });
+    }
+</script>

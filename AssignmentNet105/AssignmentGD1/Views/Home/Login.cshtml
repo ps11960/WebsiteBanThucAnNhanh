@@ -1,0 +1,35 @@
+﻿@model AssignmentGD1.Models.ViewModels.ViewWebLogin
+
+@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+}
+<h1 class="bg-info text-white">Trang Đăng Nhập - Khách Hàng</h1>
+<div class="text-danger" asp-validation-summary="All"></div>
+<div class="container login-container">
+    <div class="row">
+        <div class="col-md-6 login-form-1">
+            <h3>Đăng Nhập</h3>
+            <form asp-action="Login" method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Nhập Email" value=""  />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Nhập Mật Khẩu *" value=""  />
+                </div>
+                <div>
+                    <button class="btnSubmit btn btn-primary" type="submit">Log In</button>
+                </div>
+                <div class="form-group">
+                    <a asp-action="Register" class="ResPwd">Chưa có tài khoản?</a>
+                </div>
+            </form>
+        </div>
+        <div class="form-group text-danger">
+            <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Login">Đăng nhập quyền quản trị?</a>
+        </div>
+    </div>
+</div>
+

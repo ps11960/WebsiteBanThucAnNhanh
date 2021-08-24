@@ -1,0 +1,173 @@
+﻿@model IEnumerable<AssignmentGD1.Models.MonAn>
+
+@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+}
+
+<head>
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>Welcome to <span>Cửa hàng Hamburger</span></h1>
+                    <h2>Rất vui được phục vụ quý khách!</h2>
+
+                    <div class="btns">
+                        <a href="#menu" class="btn-menu animated fadeInUp scrollto">Menu</a>
+                        <a href="#contact" class="btn-book animated fadeInUp scrollto">Liên Hệ</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section><!-- End Hero -->
+
+    <main id="main">
+        <!-- ======= Menu Section ======= -->
+        <section id="menu" class="menu section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Menu</h2>
+                    <p>Danh Sách Món</p>
+                </div>
+
+                <div class="row" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-12 d-flex justify-content-center">
+                        <ul id="menu-flters">
+                            <li data-filter="*" class="filter-active">Tất Cả</li>
+                            <li data-filter=".filter-starters">Món</li>
+                            <li data-filter=".filter-salads">Nước</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-6 menu-item filter-starters">
+                            <img src="~/images/monan/@item.HinhAnh" class="menu-img" alt="">
+                            <div class="menu-content">
+                                <a href="#">@item.Name</a><span>@item.Gia VNĐ</span>
+                            </div>
+                            <div class="menu-ingredients">
+                                @item.MoTa
+                            </div>
+                            <a class="addProduct text-center btn btn-outline-light" href="javascript:addCart(@item.MonAnId);">
+                                Add Order <img id="imgBusy_@item.MonAnId" src="~/images/busy.gif" style="display:none" />
+                            </a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </section><!-- End Menu Section -->
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Liên Hệ</h2>
+                    <p>Liên hệ với chúng tôi qua: </p>
+                </div>
+            </div>
+            <div class="container" data-aos="fade-up">
+                <div class="row mt-5">
+                    <div class="col-lg-4">
+                        <div class="info">
+                            <div class="address">
+                                <i class="bi bi-geo-alt"></i>
+                                <h4>Địa Chỉ:</h4>
+                                <p>CVPM QT, Toà nhà Innovation lô 24, Quang Trung, Q12, TP HCM</p>
+                            </div>
+                            <div class="open-hours">
+                                <i class="bi bi-clock"></i>
+                                <h4>Thời Gian Mở Cửa:</h4>
+                                <p>
+                                    Thứ Hai - Thứ Bảy:<br>
+                                    11:00 AM - 2300 PM
+                                </p>
+                            </div>
+                            <div class="email">
+                                <i class="bi bi-envelope"></i>
+                                <h4>Email:</h4>
+                                <p>anhmtps11960@fpt.edu.vn</p>
+                            </div>
+                            <div class="phone">
+                                <i class="bi bi-phone"></i>
+                                <h4>Phone:</h4>
+                                <p>0971 404 710</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 mt-5 mt-lg-0">
+                        <form class="php-email-form">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Tên của bạn" required>
+                                </div>
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Địa chỉ Email" required>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Vấn đề" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <textarea class="form-control" name="message" rows="8" placeholder="Chi tiết" required></textarea>
+                            </div>
+                            <div class="text-center"><button type="submit">Gửi Liên Hệ</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Restaurantly</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Admin: <a href="https://www.facebook.com/maitheanh.tlst/">Mai Thế Anh</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
+    <script>
+        function addCart(id) {
+            $("#imgCart").attr("src", "/images/cartA.png");
+            $("#imgBusy_" + id).show();
+            setTimeout(function () {
+                $.ajax({
+                    url: "/Home/AddCart?Id=" + id,
+                    type: "Post",
+                    success: function (result) {
+                        alert(result+"Thêm thành công!");
+                    },
+                    error: function (e) {
+                        alert(this.url);
+                    }
+                });
+                $("#imgBusy_" + id).hide();
+            }, 500);
+        }
+    </script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <script src="assets/js/main.js"></script>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AssignmentGD1.Models.DonhangChitiet>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MonAn.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonAn.HinhAnh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soluong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Thanhtien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ghichu)
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.DonHang)
+        </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonAn)
+            </th>
+            <th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(modelItem => item.MonAn.Name)
+            </th>
+            <th>
+                <img src="~/images/monan/@item.MonAn.HinhAnh" style="width:150px" />
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Thanhtien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ghichu)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.DonHang.DonHangId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonAn.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ChiTietId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ChiTietId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ChiTietId">Delete</a>
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>

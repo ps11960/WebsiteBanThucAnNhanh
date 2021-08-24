@@ -1,0 +1,26 @@
+﻿@model AssignmentGD1.Models.ViewModels.ViewLogin
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="bg-info text-white">Trang Đăng Nhập - Admin</h1>
+<div class="text-danger" asp-validation-summary="All"></div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+            </div>
+            <button class="btn btn-primary" type="submit">Đăng Nhập</button>
+        </form>
+    </div>
+</div>
+

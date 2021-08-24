@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AssignmentGD1.Models.DonHang>
+
+@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+}
+
+<h1>Lịch sử đơn hàng</h1>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngaydat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangthaiDonhang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ghichu)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHangId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngaydat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangthaiDonhang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ghichu)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.DonHangId">Edit</a> |*@
+                    <a asp-action="Details" asp-route-id="@item.DonHangId">Details</a> |
+                    @*<a asp-action="Delete" asp-route-id="@item.DonHangId">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Trở về danh sách</a>
+</div>

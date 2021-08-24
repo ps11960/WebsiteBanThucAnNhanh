@@ -1,0 +1,94 @@
+﻿@model IEnumerable<AssignmentGD1.Models.MonAn>
+@using AssignmentGD1.Constant
+@using Microsoft.AspNetCore.Http
+@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+}
+
+<style>
+    .list-product {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .product {
+        margin-top: 10px;
+        margin-right: 10px;
+        width: 205px;
+    }
+
+    .img {
+        width: 150px;
+        display: block;
+        margin: auto;
+    }
+
+    .title {
+        color: #0e0e0e;
+        display: block;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        height: 60px;
+    }
+
+    .field-price {
+        font-size: 24px;
+        color: #d50000;
+        margin-bottom: 15px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .viewProduct, .addProduct {
+        border: 0;
+        font-weight: 700;
+        padding: 9px 5px;
+        background: #ffd800;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        display: block;
+        width: 186px;
+        margin: 0 auto;
+        color: #0e0e0e;
+    }
+
+    .addProduct {
+        margin-left: 2px;
+    }
+</style>
+<h1 class="text-dark font-weight-bold">Danh Sách Món Ăn</h1>
+<div class="list-product">
+    @foreach (var item in Model)
+    {
+        <div class="product">
+            <img src="~/images/monan/@item.HinhAnh" style="width:150px" class="img-responsive" />
+            <spam class="title">@item.Name</spam>
+            <div class="field-price">@item.Gia</div>
+            <a class="addProduct text-center" href="javascript:addCart(@item.MonAnId);">
+                Add Order <img id="imgBusy_@item.MonAnId" src="~/images/busy.gif" style="display:none" />
+            </a>
+        </div>
+    }
+</div>
+<script>
+    function addCart(id) {
+        $("#imgCart").attr("src", "/images/cartA.png");
+        $("#imgBusy_" + id).show();
+        setTimeout(function () {
+            $.ajax({
+                url: "/Home/AddCart?Id=" + id,
+                type: "Post",
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (e) {
+                    alert(this.url);
+                }
+            });
+            $("#imgBusy_" + id).hide();
+        }, 500);
+    }
+</script>
